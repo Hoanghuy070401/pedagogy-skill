@@ -45,6 +45,13 @@ vào prompt của agent soạn bài. Các file `references/01–04` để agent 
 Bốn file gốc nằm ở `schoolAI-deploy/website/`. Khi chúng đổi, copy lại `references/00–02` rồi
 soát tay `03`, `04` và `SKILL.md` (đây là bản trích/rút gọn, không sinh tự động).
 
+## Phạm vi hiện tại
+
+Repo này hiện chỉ chứa bộ quy tắc soạn bài học (lesson-authoring). Sơ đồ
+`frameworks/ subjects/ curriculum/ schemas/` rộng hơn được mô tả trong tài
+liệu kiến trúc hệ sinh thái chưa được xây — xem `doc/plan-ecosystem-scaffold.md`
+trong repo `AI_foreducation` (thư mục cha) để biết khoảng cách và thứ tự dự kiến.
+
 ## Giấy phép và nguồn tham chiếu
 
 - Quy trình humanize adapt từ [humanize-writing-skill](https://github.com/lguz/humanize-writing-skill) (MIT).
