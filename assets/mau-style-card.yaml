@@ -1,0 +1,35 @@
+version: 1
+status: draft
+scope: task
+
+artifact: ""
+audience:
+  role: ""
+  level: ""
+purpose: ""
+
+technical_baseline:
+  required_sections: []
+  glossary_required: false
+  citation_mode: inline
+  assumptions_must_be_labeled: true
+  semantic_preservation: strict
+
+user_style_layer:
+  register: neutral
+  address: contextual
+  sentence_length: medium
+  paragraph_rhythm: ""
+  preferred_terms: []
+  avoid_terms: []
+  preferred_moves: []
+  avoid_moves: []
+  formatting:
+    tables: when_useful
+    lists: when_useful
+    formulas: when_required
+    questions: sparing
+
+evidence_basis: []
+confidence: low
+confirmed_by_user: false
