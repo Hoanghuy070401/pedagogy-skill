@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bài học THPT về uranium-233: cấu tạo hạt nhân, chuỗi biến đổi từ thorium-232, phân hạch, bán rã và kỹ năng kiểm chứng nguồn.">
+  <title>Uranium-233 — Từ thorium đến đồng vị phân hạch</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #53606d;
+      --paper: #fbfaf6;
+      --surface: #ffffff;
+      --line: #d9ddd8;
+      --primary: #115e59;
+      --primary-soft: #e7f5f1;
+      --accent: #b45309;
+      --accent-soft: #fff4df;
+      --danger: #a52a2a;
+      --danger-soft: #fff0ed;
+      --blue: #1d4ed8;
+      --shadow: 0 18px 50px rgba(23, 33, 43, .08);
+      --radius: 20px;
+      --content: 1120px;
+      --dur-press: 100ms;
+      --dur-state: 180ms;
+      --ease-out: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { overflow-x: clip; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: clip;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(17, 94, 89, .09), transparent 28rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    a { color: var(--blue); text-underline-offset: .18em; }
+    :focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -5rem;
+      z-index: 10;
+      padding: .7rem 1rem;
+      color: white;
+      background: var(--ink);
+      border-radius: .5rem;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .hero {
+      padding: 4.5rem 1.25rem 3rem;
+      color: white;
+      background:
+        linear-gradient(125deg, rgba(8, 47, 73, .95), rgba(17, 94, 89, .94)),
+        repeating-linear-gradient(45deg, transparent 0 16px, rgba(255,255,255,.04) 16px 17px);
+    }
+    .hero-inner, .layout { width: min(var(--content), calc(100% - 2rem)); margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 .8rem;
+      color: #bfe8df;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.35rem, 6vw, 5.3rem);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+    .hero-lead { max-width: 760px; margin: 1.4rem 0 0; color: #e1f4f0; font-size: 1.13rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.7rem; }
+    .tag {
+      padding: .45rem .75rem;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      font-size: .88rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 2.3rem;
+      align-items: start;
+      padding-block: 2.5rem 5rem;
+    }
+    main { min-width: 0; }
+    nav {
+      position: sticky;
+      top: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    nav strong { display: block; margin-bottom: .55rem; }
+    nav ol { margin: 0; padding-left: 1.25rem; font-size: .88rem; line-height: 1.45; }
+    nav li + li { margin-top: .45rem; }
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color var(--dur-state) var(--ease-out);
+    }
+
+    section {
+      margin-bottom: 1.4rem;
+      padding: clamp(1.25rem, 4vw, 2.15rem);
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    #quiz, #nguon, .audit, .safety {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    h1, h2, h3 { min-width: 0; overflow-wrap: anywhere; }
+    h2, h3 { line-height: 1.25; }
+    h2 {
+      margin: 0 0 1rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.35rem);
+      font-weight: 500;
+      letter-spacing: -.025em;
+    }
+    h3 { margin: 1.6rem 0 .6rem; font-size: 1.16rem; }
+    p:first-child, h2 + p { margin-top: 0; }
+    p:last-child { margin-bottom: 0; }
+    .section-kicker { color: var(--primary); font-size: .8rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .lead { font-size: 1.08rem; color: #33404c; }
+    .thread {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.35rem;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid #8fbdb4;
+      border-radius: 14px;
+      background: #f2faf8;
+    }
+    .thread-mark {
+      display: grid;
+      width: 3.2rem;
+      height: 3.2rem;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--primary);
+      font-family: Georgia, serif;
+      font-size: 1.25rem;
+    }
+    .thread p { margin: 0; }
+    .bridge {
+      margin: 1.5rem 0 0;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--line);
+      color: #40505d;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.08rem;
+      font-style: italic;
+    }
+    .motif {
+      margin: 1.4rem 0;
+      color: #16364a;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.3rem, 3vw, 1.85rem);
+      text-align: center;
+      letter-spacing: .02em;
+    }
+    .motif strong { color: var(--accent); }
+    .turn {
+      margin: 2rem -.7rem 1.4rem;
+      padding: 1.7rem clamp(1.1rem, 4vw, 2rem);
+      border: 0;
+      border-radius: 18px;
+      color: white;
+      background: linear-gradient(135deg, #15334a, #0d5f59);
+      box-shadow: 0 20px 45px rgba(13, 62, 71, .18);
+      text-align: center;
+    }
+    .turn p { max-width: 720px; margin: 0 auto; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.35rem, 3.5vw, 2rem); line-height: 1.35; }
+    .turn small { display: block; margin-top: .75rem; color: #bee7df; }
+
+    .question {
+      padding: 1.15rem 1.3rem;
+      border-left: 5px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      background: var(--accent-soft);
+    }
+    .question strong { color: #7c3d08; }
+    .teacher-note {
+      margin-top: 1.2rem;
+      padding: 1rem 1.15rem;
+      border: 1px dashed #8aa8a2;
+      border-radius: 12px;
+      background: #f2faf8;
+      color: #28443f;
+      font-size: .93rem;
+    }
+    .teacher-note::before { content: "Gợi ý cho giáo viên · "; font-weight: 800; }
+
+    .objectives {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .85rem;
+      padding: 0;
+      list-style: none;
+      counter-reset: objective;
+    }
+    .objectives li {
+      display: grid;
+      grid-template-columns: 1.8rem minmax(0, 1fr);
+      align-content: start;
+      align-items: start;
+      gap: .75rem;
+      min-width: 0;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fcfcfa;
+      counter-increment: objective;
+    }
+    .objectives li::before {
+      content: counter(objective);
+      display: grid;
+      align-self: center;
+      width: 1.8rem;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--primary);
+      font-weight: 800;
+    }
+    .objectives li > span { min-width: 0; overflow-wrap: anywhere; }
+
+    .nuclide-card {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+      margin-block: 1.2rem;
+      padding: 1.3rem;
+      border-radius: 18px;
+      color: white;
+      background: linear-gradient(145deg, #18334b, #115e59);
+    }
+    .nuclide-symbol { text-align: center; font-family: Georgia, serif; font-size: 4.5rem; line-height: 1; }
+    .nuclide-symbol sup, .nuclide-symbol sub { font-size: .43em; }
+    .nuclide-card dl { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1rem; margin: 0; }
+    .nuclide-card dt { color: #a9dcd1; font-weight: 700; }
+    .nuclide-card dd { margin: 0; }
+
+    .equation {
+      overflow-x: auto;
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 1px solid #b9d8d2;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.05rem, 3vw, 1.35rem);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .equation .nuclide sup, .equation .nuclide sub { font-size: .66em; }
+
+    .chain {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: .65rem;
+      align-items: stretch;
+      margin: 1.4rem 0;
+    }
+    .stage {
+      display: grid;
+      min-height: 132px;
+      place-items: center;
+      padding: .9rem;
+      border: 1px solid #b9d8d2;
+      border-radius: 14px;
+      background: var(--primary-soft);
+      text-align: center;
+    }
+    .stage strong { display: block; font-size: 1.12rem; }
+    .stage small { display: block; margin-top: .4rem; color: var(--muted); }
+    .arrow { align-self: center; color: var(--accent); font-size: 1.8rem; font-weight: 800; }
+    .arrow span { display: block; max-width: 95px; font-size: .68rem; line-height: 1.25; text-align: center; }
+
+    .compare { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .compare th, .compare td { padding: .8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .compare th { color: white; background: var(--primary); }
+    .compare th:first-child { border-radius: 10px 0 0 0; }
+    .compare th:last-child { border-radius: 0 10px 0 0; }
+
+    .audit {
+      border: 1px solid #efc5bb;
+      background: var(--danger-soft);
+    }
+    .wrong-number, .right-number { display: block; padding: .85rem; border-radius: 10px; font-family: Georgia, serif; font-size: 1.18rem; text-align: center; }
+    .wrong-number { color: var(--danger); background: white; text-decoration: line-through; }
+    .right-number { margin-top: .65rem; color: #14532d; background: #ecfdf3; font-weight: 700; }
+    .calculation { overflow-x: auto; padding: 1rem; border-radius: 10px; background: #222d36; color: #eef7f5; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+
+    details { margin-top: .9rem; border: 1px solid var(--line); border-radius: 12px; background: #fcfcfa; }
+    summary { display: flex; min-height: 44px; align-items: center; padding: .85rem 1rem; cursor: pointer; font-weight: 750; }
+    details > div { padding: 0 1rem 1rem; }
+
+    .quiz-question { margin: 1.3rem 0; padding: 1.1rem; border: 1px solid var(--line); border-radius: 14px; }
+    .quiz-question legend { padding: 0 .35rem; font-weight: 750; }
+    .choice {
+      display: flex;
+      min-height: 44px;
+      align-items: center;
+      margin: .55rem 0;
+      padding: .65rem .75rem;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background-color var(--dur-state) var(--ease-out);
+    }
+    .choice input { margin-right: .55rem; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      min-height: 44px;
+      padding: .8rem 1.05rem;
+      color: white;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background-color var(--dur-state) var(--ease-out),
+                  transform var(--dur-press) var(--ease-out);
+    }
+    button:active { transform: translateY(1px); }
+    .quiz-result { min-height: 1.7rem; margin-top: 1rem; font-weight: 750; }
+    .feedback-list { padding-left: 1.25rem; }
+    .feedback-list li + li { margin-top: .55rem; }
+
+    .source-list { padding: 0; list-style: none; }
+    .source-list li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+    .source-list li:last-child { border-bottom: 0; }
+    .source-type { display: inline-block; margin-right: .4rem; padding: .2rem .48rem; border-radius: 6px; background: var(--primary-soft); color: var(--primary); font-size: .76rem; font-weight: 800; text-transform: uppercase; }
+    .source-note { display: block; margin-top: .3rem; color: var(--muted); font-size: .9rem; }
+    .safety { border-color: #ecd5a6; background: #fffaf0; }
+
+    footer { padding: 2rem 1rem 3rem; color: var(--muted); text-align: center; font-size: .9rem; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: static; order: -1; }
+      nav ol { columns: 2; column-gap: 2rem; }
+      .chain { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); justify-self: center; }
+      .arrow span { display: none; }
+    }
+    @media (max-width: 620px) {
+      body { font-size: 16px; }
+      .hero { padding-top: 3rem; }
+      .layout, .hero-inner { width: min(100% - 1.2rem, var(--content)); }
+      section { border-radius: 14px; }
+      .objectives { grid-template-columns: minmax(0, 1fr); }
+      .nuclide-card { grid-template-columns: 1fr; }
+      nav ol { columns: 1; }
+      .compare { display: block; overflow-x: auto; white-space: normal; }
+    }
+    @media (hover: hover) and (pointer: fine) {
+      a:hover { text-decoration-thickness: 2px; }
+      nav a:hover { color: var(--primary); text-decoration: underline; }
+      .choice:hover { background: var(--primary-soft); }
+      button:hover { background: #0b4d49; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    @media print {
+      body { background: white; font-size: 11pt; }
+      .hero { padding: 1.5rem 0; color: black; background: white; border-bottom: 2px solid #222; }
+      .hero-lead, .eyebrow { color: #333; }
+      .tag { border-color: #777; }
+      .layout { display: block; width: 100%; padding: 1rem 0; }
+      nav, button, .skip-link { display: none; }
+      section { break-inside: avoid; margin-bottom: .8rem; padding: 1rem; box-shadow: none; }
+      details { break-inside: avoid; }
+      details > div { display: block; }
+      a { color: black; word-break: break-word; }
+      .chain { grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; }
+      .arrow { transform: none; }
+      footer { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#noi-dung">Bỏ qua mục lục, đến nội dung bài học</a>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Vật lí hạt nhân · Bài học từ nguồn</p>
+      <h1>Uranium-233</h1>
+      <p class="hero-lead">Thorium-232 có thể hấp thụ neutron rồi biến đổi thành uranium-233. Theo dõi số khối và số proton ở từng bước sẽ giúp bạn hiểu quá trình này mà không phải học thuộc chuỗi phản ứng.</p>
+      <div class="meta" aria-label="Thông tin bài học">
+        <span class="tag">Đối tượng: THPT</span>
+        <span class="tag">Thời lượng: 45 phút</span>
+        <span class="tag">Hình thức: đọc · thảo luận · tự kiểm</span>
+        <span class="tag">Cập nhật: 12/08/2026</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main id="noi-dung">
+      <section id="cau-hoi">
+        <p class="section-kicker">Vấn đề cần giải thích</p>
+        <h2>Vì sao thorium-232 có thể tham gia một chu trình nhiên liệu hạt nhân?</h2>
+        <p class="lead">Thorium-232 không phải vật liệu phân hạch bằng neutron nhiệt. Tuy nhiên, nó có thể hấp thụ một neutron rồi trải qua hai lần phân rã beta. Sản phẩm cuối cùng là uranium-233, một đồng vị có thể phân hạch bằng neutron nhiệt.</p>
+        <p>Quá trình gồm ba bước. Trước hết, thorium-232 hấp thụ một neutron và trở thành thorium-233. Sau đó, thorium-233 phân rã thành protactinium-233. Protactinium-233 tiếp tục phân rã thành uranium-233.</p>
+        <div class="question">
+          <strong>Câu hỏi trung tâm:</strong> Trong chuỗi ấy, điều gì được giữ nguyên, điều gì thay đổi, và vì sao uranium-233 có thể tham gia phản ứng phân hạch?
+        </div>
+        <div class="thread">
+          <span class="thread-mark" aria-hidden="true">A/Z</span>
+          <p><strong>Cách theo dõi quá trình:</strong> quan sát số khối <em>A</em> và số proton <em>Z</em> ở mỗi bước. Hai đại lượng này cho biết hạt nhân nhận thêm neutron hay đã biến thành một nguyên tố khác.</p>
+        </div>
+        <div class="teacher-note">Cho học sinh dự đoán chuỗi biến đổi trước khi hiện sơ đồ ở phần 4. Không yêu cầu các em nhớ tên uranium-233 từ đầu. Trọng tâm là dùng số khối và số proton để suy ra sản phẩm.</div>
+      </section>
+
+      <section id="muc-tieu">
+        <p class="section-kicker">Đích học tập</p>
+        <h2>Học xong, bạn làm được gì?</h2>
+        <ol class="objectives">
+          <li><span>Xác định đúng số proton và neutron trong hạt nhân uranium-233.</span></li>
+          <li><span>Giải thích từng chặng từ thorium-232 đến uranium-233, không bỏ qua mắt xích trung gian.</span></li>
+          <li><span>Phân biệt vật liệu sinh nhiên liệu với vật liệu phân hạch bằng neutron nhiệt.</span></li>
+          <li><span>Kiểm tra một số liệu khoa học bằng đơn vị, phép đổi và bậc của số.</span></li>
+        </ol>
+        <h3>Kiến thức cần có</h3>
+        <p>Số hiệu nguyên tử <em>Z</em> bằng số proton. Số khối <em>A</em> bằng tổng số proton và neutron. Trong phân rã beta trừ, một neutron biến thành proton nên <em>Z</em> tăng một còn <em>A</em> không đổi.</p>
+        <p class="bridge">Ba quy tắc trên đủ để giải thích toàn bộ chuỗi biến đổi từ thorium-232 thành uranium-233.</p>
+      </section>
+
+      <section id="cau-tao">
+        <p class="section-kicker">Công cụ quan sát</p>
+        <h2>Đọc số khối và số proton</h2>
+        <div class="nuclide-card" role="img" aria-label="Uranium-233 có ký hiệu U, số khối 233, số hiệu nguyên tử 92, gồm 92 proton và 141 neutron">
+          <div class="nuclide-symbol"><sup>233</sup><sub>92</sub>U</div>
+          <dl>
+            <dt>Số proton</dt><dd>92</dd>
+            <dt>Số khối</dt><dd>233</dd>
+            <dt>Số neutron</dt><dd>233 − 92 = 141</dd>
+            <dt>Loại hạt nhân</dt><dd>Đồng vị phóng xạ của uranium</dd>
+          </dl>
+        </div>
+        <p>Số hiệu nguyên tử của uranium là 92, nên hạt nhân uranium-233 có 92 proton. Số khối 233 là tổng số proton và neutron. Vì vậy, số neutron bằng <strong>233 − 92 = 141</strong>.</p>
+        <p>Uranium-233 và uranium-235 đều có 92 proton nên cùng thuộc nguyên tố uranium. Hai đồng vị khác nhau về số neutron. Con số 233 biểu thị số khối, không phải điện tích hay vị trí của uranium trong bảng tuần hoàn.</p>
+        <details>
+          <summary>Tự kiểm: nếu uranium-233 mất một hạt alpha thì hạt nhân con có A và Z bằng bao nhiêu?</summary>
+          <div><p>Hạt alpha mang 2 proton và 2 neutron. Vì thế số khối giảm 4, số hiệu nguyên tử giảm 2: <strong>A = 229, Z = 90</strong>. Hạt nhân con là thorium-229.</p></div>
+        </details>
+        <p class="bridge">Khi phân tích một biến đổi hạt nhân, số khối cho biết hạt nhân có nhận hoặc mất nucleon hay không. Số proton cho biết nguyên tố đã thay đổi hay chưa.</p>
+      </section>
+
+      <section id="chuoi-bien-doi">
+        <p class="section-kicker">Cơ chế trung tâm</p>
+        <h2>Ba bước tạo thành uranium-233</h2>
+        <p>Bước đầu làm số khối tăng từ 232 lên 233. Hai bước sau giữ nguyên số khối nhưng lần lượt làm số proton tăng từ 90 lên 91 rồi 92.</p>
+        <div class="chain" role="img" aria-label="Thorium-232 hấp thụ neutron thành thorium-233; thorium-233 phân rã beta trừ thành protactinium-233; protactinium-233 phân rã beta trừ thành uranium-233">
+          <div class="stage"><div><strong>Thorium-232</strong><small>90 proton · 142 neutron</small></div></div>
+          <div class="arrow" aria-hidden="true">→<span>bắt neutron</span></div>
+          <div class="stage"><div><strong>Thorium-233</strong><small>chu kỳ bán rã ≈ 21,83 phút</small></div></div>
+          <div class="arrow" aria-hidden="true">→<span>beta trừ</span></div>
+          <div class="stage"><div><strong>Protactinium-233</strong><small>chu kỳ bán rã ≈ 26,975 ngày</small></div></div>
+          <div class="arrow" aria-hidden="true">→<span>beta trừ</span></div>
+          <div class="stage"><div><strong>Uranium-233</strong><small>92 proton · 141 neutron</small></div></div>
+        </div>
+        <p class="motif">Số khối: <strong>232 → 233 → 233 → 233</strong><br>Số proton: <strong>90 → 90 → 91 → 92</strong></p>
+
+        <h3>Chặng 1 — Thorium giữ lại một neutron</h3>
+        <div class="equation"><span class="nuclide"><sup>232</sup><sub>90</sub>Th</span> + <span class="nuclide"><sup>1</sup><sub>0</sub>n</span> → <span class="nuclide"><sup>233</sup><sub>90</sub>Th</span></div>
+        <p>Hạt nhân nhận thêm một neutron nên số khối tăng từ 232 lên 233. Số proton vẫn bằng 90, vì vậy sản phẩm vẫn là thorium.</p>
+
+        <h3>Chặng 2 — Thorium-233 phân rã beta trừ</h3>
+        <div class="equation"><span class="nuclide"><sup>233</sup><sub>90</sub>Th</span> → <span class="nuclide"><sup>233</sup><sub>91</sub>Pa</span> + <span class="nuclide"><sup>0</sup><sub>−1</sub>e</span> + ν̅<sub>e</sub></div>
+        <p>Trong phân rã beta trừ, một neutron biến thành proton. Tổng số nucleon không đổi nên số khối vẫn bằng 233. Số proton tăng từ 90 lên 91, vì vậy thorium-233 trở thành protactinium-233.</p>
+
+        <h3>Chặng 3 — Protactinium-233 phân rã beta trừ</h3>
+        <div class="equation"><span class="nuclide"><sup>233</sup><sub>91</sub>Pa</span> → <span class="nuclide"><sup>233</sup><sub>92</sub>U</span> + <span class="nuclide"><sup>0</sup><sub>−1</sub>e</span> + ν̅<sub>e</sub></div>
+        <p>Protactinium-233 tiếp tục phân rã beta trừ. Số khối vẫn bằng 233, còn số proton tăng từ 91 lên 92. Hạt nhân có 92 proton là uranium, nên sản phẩm là uranium-233.</p>
+
+        <details>
+          <summary>Vì sao số khối 233 không đổi qua hai lần phân rã beta?</summary>
+          <div><p>Phân rã beta đổi loại của một nucleon: neutron thành proton. Tổng số nucleon không đổi, nên số khối vẫn bằng 233. Điện tích hạt nhân tăng một đơn vị sau mỗi lần phân rã.</p></div>
+        </details>
+        <div class="turn">
+          <p>Sau khi thorium-232 hấp thụ neutron, số khối giữ ở 233. Hai lần phân rã beta làm số proton tăng từ 90 lên 92.</p>
+          <small>Đây là quan hệ chính của chuỗi biến đổi.</small>
+        </div>
+        <p>Dữ liệu ENSDF cho biết thorium-233 có chu kỳ bán rã khoảng 21,83 phút. Protactinium-233 có chu kỳ bán rã khoảng 26,975 ngày. Các giá trị này mô tả tốc độ của hai bước phân rã. Trong cả hai bước, số khối vẫn được bảo toàn.</p>
+        <p class="bridge">Chuỗi phản ứng giải thích cách uranium-233 được tạo thành. Tính phân hạch của sản phẩm này tạo nên ý nghĩa của chu trình thorium.</p>
+      </section>
+
+      <section id="vai-tro">
+        <p class="section-kicker">Vai trò của vật liệu</p>
+        <h2>Thorium-232 và uranium-233 có vai trò khác nhau</h2>
+        <table class="compare">
+          <thead><tr><th>Khái niệm</th><th>Nghĩa trong bài</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Vật liệu sinh nhiên liệu</strong><br><small>fertile material</small></td><td>Không trực tiếp duy trì phân hạch bằng neutron nhiệt, nhưng có thể hấp thụ neutron rồi biến đổi thành đồng vị phân hạch.</td><td>Thorium-232</td></tr>
+            <tr><td><strong>Vật liệu phân hạch</strong><br><small>fissile material</small></td><td>Có thể phân hạch sau khi hấp thụ neutron nhiệt và giải phóng thêm neutron.</td><td>Uranium-233</td></tr>
+          </tbody>
+        </table>
+        <p>Thorium-232 là vật liệu sinh nhiên liệu: nó có thể chuyển hóa thành một đồng vị phân hạch. Uranium-233 là vật liệu phân hạch: sau khi hấp thụ neutron nhiệt, hạt nhân có thể phân tách, giải phóng năng lượng và thêm neutron.</p>
+        <p>Các neutron sinh ra có thể tiếp tục gây phân hạch ở những hạt nhân khác. Trong lò phản ứng, phản ứng dây chuyền này phải được kiểm soát. Vì thorium-232 không tự duy trì phản ứng dây chuyền, một chu trình thorium vẫn cần nguồn neutron và vật liệu phân hạch để khởi động.</p>
+        <div class="question"><strong>Kết luận:</strong> thorium-232 là nguyên liệu có thể tạo ra nhiên liệu. Uranium-233 là nhiên liệu phân hạch được tạo ra từ nguyên liệu đó.</div>
+        <p class="bridge">Khả năng phân hạch không làm uranium-233 trở thành đồng vị bền. Đồng vị này vẫn phân rã theo thời gian.</p>
+      </section>
+
+      <section id="ban-ra">
+        <p class="section-kicker">Tính phóng xạ</p>
+        <h2>Chu kỳ bán rã của uranium-233</h2>
+        <p>Uranium-233 chủ yếu phân rã alpha thành thorium-229:</p>
+        <div class="equation"><span class="nuclide"><sup>233</sup><sub>92</sub>U</span> → <span class="nuclide"><sup>229</sup><sub>90</sub>Th</span> + <span class="nuclide"><sup>4</sup><sub>2</sub>He</span></div>
+        <p>Dữ liệu hạt nhân đánh giá cho chu kỳ bán rã khoảng <strong>159.200 năm</strong>. Wikipedia tiếng Việt làm tròn giá trị này thành 160.000 năm. Hai cách ghi phù hợp với nhau.</p>
+        <div class="question"><strong>Lưu ý:</strong> chu kỳ bán rã dài không có nghĩa là đồng vị không phóng xạ. Nó chỉ cho biết số hạt uranium-233 giảm chậm theo thời gian.</div>
+        <p class="bridge">Việc đối chiếu hai cách ghi trên cũng cho thấy số liệu cần được kiểm tra theo đơn vị và độ chính xác. Phần sau áp dụng cách kiểm tra này cho năng lượng phân hạch.</p>
+      </section>
+
+      <section id="kiem-chung" class="audit">
+        <p class="section-kicker">Kiểm chứng nguồn</p>
+        <h2>Kiểm tra phép đổi năng lượng từ MeV sang joule</h2>
+        <p>Bài Wikipedia tiếng Việt nêu năng lượng của một lần phân hạch uranium-233 là khoảng 197,9 MeV. Tuy nhiên, giá trị quy đổi sang joule trên trang đang hiển thị là:</p>
+        <span class="wrong-number">3,171 × 10<sup>11</sup> J cho một phân hạch</span>
+        <p>Dùng hệ số đổi <strong>1 MeV = 1,602 × 10<sup>−13</sup> J</strong>:</p>
+        <div class="calculation" aria-label="197 phẩy 9 nhân 1 phẩy 602 nhân 10 mũ trừ 13 xấp xỉ 3 phẩy 17 nhân 10 mũ trừ 11 joule">197,9 × 1,602 × 10<sup>−13</sup> ≈ 3,17 × 10<sup>−11</sup> J</div>
+        <span class="right-number">Giá trị đúng phải ở cỡ 3,17 × 10<sup>−11</sup> J cho một phân hạch.</span>
+        <p>Giá trị trên thiếu dấu trừ ở số mũ. Vì vậy, nó lớn hơn kết quả đúng <strong>10<sup>22</sup> lần</strong>.</p>
+        <h3>Kiểm tra từng mệnh đề thay vì đánh giá chung cả trang</h3>
+        <ol>
+          <li>Kiểm tra đại lượng và đơn vị đang nói tới.</li>
+          <li>Viết riêng hệ số đổi, không tính nhẩm dấu của số mũ.</li>
+          <li>Ước lượng bậc lớn trước khi bấm máy.</li>
+          <li>Đối chiếu với nguồn dữ liệu chuyên môn hoặc phép tính độc lập.</li>
+        </ol>
+        <p>Wikipedia vẫn hữu ích để tìm từ khóa và xác định phạm vi. Tuy nhiên, mỗi loại thông tin cần cách kiểm tra phù hợp. Chu kỳ bán rã nên đối chiếu với cơ sở dữ liệu hạt nhân. Phép đổi đơn vị nên được tính lại. Không nên chấp nhận hoặc bác bỏ toàn bộ một trang chỉ từ một chi tiết.</p>
+      </section>
+
+      <section id="gioi-han" class="safety">
+        <p class="section-kicker">Ranh giới</p>
+        <h2>Cơ chế hạt nhân chưa đủ để đánh giá một công nghệ năng lượng</h2>
+        <p>Chuỗi phản ứng cho thấy uranium-233 có thể được tạo từ thorium-232. Kết quả này chỉ xác nhận tính khả thi về mặt vật lí. Để đánh giá một chu trình nhiên liệu, còn phải xem xét thiết kế lò, chế tạo và quản lý nhiên liệu, chất thải, an toàn bức xạ, chi phí và kiểm soát vật liệu hạt nhân.</p>
+        <p>Trong quá trình tạo uranium-233 có thể xuất hiện uranium-232. Chuỗi phân rã của uranium-232 phát ra bức xạ gamma mạnh. Vì vậy, việc xử lý và quản lý vật liệu trở nên phức tạp hơn. Bài học này chỉ trình bày nguyên lí vật lí. Vật liệu phóng xạ chỉ được xử lý tại cơ sở được cấp phép và bởi nhân sự chuyên môn.</p>
+        <div class="question"><strong>Câu hỏi chuyển giao:</strong> Khi gặp nhận định “thorium tốt hơn uranium”, trước hết hãy hỏi: tốt hơn theo tiêu chí nào và bằng chứng nào hỗ trợ tiêu chí đó?</div>
+      </section>
+
+      <section id="quiz">
+        <p class="section-kicker">Bằng chứng học</p>
+        <h2>Tự kiểm cuối bài</h2>
+        <form id="quiz-form">
+          <fieldset class="quiz-question">
+            <legend>1. Hạt nhân uranium-233 có bao nhiêu neutron?</legend>
+            <label class="choice"><input type="radio" name="q1" value="a"> 92</label>
+            <label class="choice"><input type="radio" name="q1" value="b"> 141</label>
+            <label class="choice"><input type="radio" name="q1" value="c"> 233</label>
+            <label class="choice"><input type="radio" name="q1" value="d"> 325</label>
+          </fieldset>
+          <fieldset class="quiz-question">
+            <legend>2. Điều gì xảy ra khi thorium-232 bắt một neutron?</legend>
+            <label class="choice"><input type="radio" name="q2" value="a"> Số khối tăng một, nguyên tố vẫn là thorium.</label>
+            <label class="choice"><input type="radio" name="q2" value="b"> Số proton tăng một ngay lập tức.</label>
+            <label class="choice"><input type="radio" name="q2" value="c"> Hạt nhân biến trực tiếp thành uranium-233.</label>
+            <label class="choice"><input type="radio" name="q2" value="d"> Số khối giảm bốn.</label>
+          </fieldset>
+          <fieldset class="quiz-question">
+            <legend>3. Trong phân rã beta trừ của protactinium-233, đại lượng nào thay đổi?</legend>
+            <label class="choice"><input type="radio" name="q3" value="a"> Số khối giảm một.</label>
+            <label class="choice"><input type="radio" name="q3" value="b"> Tổng số nucleon tăng một.</label>
+            <label class="choice"><input type="radio" name="q3" value="c"> Số proton tăng một.</label>
+            <label class="choice"><input type="radio" name="q3" value="d"> Số proton giảm hai.</label>
+          </fieldset>
+          <fieldset class="quiz-question">
+            <legend>4. Phát biểu nào mô tả đúng vai trò của thorium-232?</legend>
+            <label class="choice"><input type="radio" name="q4" value="a"> Là vật liệu phân hạch nhiệt giống uranium-233.</label>
+            <label class="choice"><input type="radio" name="q4" value="b"> Tự nó đủ để khởi động mọi lò phản ứng.</label>
+            <label class="choice"><input type="radio" name="q4" value="c"> Là đồng vị bền của uranium.</label>
+            <label class="choice"><input type="radio" name="q4" value="d"> Có thể hấp thụ neutron rồi qua các phân rã tạo uranium-233.</label>
+          </fieldset>
+          <fieldset class="quiz-question">
+            <legend>5. Vì sao cần nghi ngờ giá trị 3,17 × 10¹¹ J cho một phân hạch?</legend>
+            <label class="choice"><input type="radio" name="q5" value="a"> Vì phép đổi từ MeV cho kết quả ở cỡ 10⁻¹¹ J, dấu của số mũ đã sai.</label>
+            <label class="choice"><input type="radio" name="q5" value="b"> Vì MeV không thể đổi sang joule.</label>
+            <label class="choice"><input type="radio" name="q5" value="c"> Vì mọi số liệu trên Wikipedia đều sai.</label>
+            <label class="choice"><input type="radio" name="q5" value="d"> Vì năng lượng phân hạch bằng không.</label>
+          </fieldset>
+          <button type="submit">Kiểm tra đáp án</button>
+          <p id="quiz-result" class="quiz-result" role="status" aria-live="polite"></p>
+          <ol id="quiz-feedback" class="feedback-list" aria-live="polite"></ol>
+        </form>
+        <noscript><p><strong>Không có JavaScript:</strong> đáp án lần lượt là 1B, 2A, 3C, 4D, 5A.</p></noscript>
+      </section>
+
+      <section id="ghi-nho">
+        <p class="section-kicker">Kết luận</p>
+        <h2>Từ thorium-232 đến uranium-233</h2>
+        <p>Thorium-232 hấp thụ một neutron để tạo thành thorium-233. Hai lần phân rã beta sau đó giữ nguyên số khối 233 và làm số proton tăng từ 90 lên 92. Sản phẩm cuối cùng là uranium-233.</p>
+        <div class="turn">
+          <p>Trong hai lần phân rã beta, A giữ nguyên ở 233. Z tăng từ 90 lên 91 rồi 92.</p>
+          <small>Quan hệ này giải thích vì sao thorium-233 lần lượt biến thành protactinium-233 và uranium-233.</small>
+        </div>
+        <p>Thorium-232 là vật liệu sinh nhiên liệu, còn uranium-233 là vật liệu phân hạch. Sự khác biệt này giải thích vai trò của hai đồng vị trong chu trình thorium. Khi đánh giá ứng dụng thực tế, cần xem thêm các vấn đề về an toàn, kỹ thuật, kinh tế và kiểm soát vật liệu hạt nhân.</p>
+      </section>
+
+      <section id="nguon">
+        <p class="section-kicker">Provenance</p>
+        <h2>Nguồn và mức sử dụng</h2>
+        <ul class="source-list">
+          <li><span class="source-type">Nguồn khởi đầu</span><a href="https://vi.wikipedia.org/wiki/Uranium-233" rel="noreferrer">Wikipedia tiếng Việt — Uranium-233</a><span class="source-note">Dùng để xác định phạm vi và làm hoạt động kiểm chứng; không dùng làm căn cứ duy nhất cho số liệu.</span></li>
+          <li><span class="source-type">Dữ liệu đánh giá</span><a href="https://www.nndc.bnl.gov/nudat3/getdecaydataset.jsp?dsid=233th+bM+decay+%2821.83+m%29&amp;nucleus=233PA" rel="noreferrer">NNDC/ENSDF — phân rã thorium-233</a><span class="source-note">Đối chiếu chu kỳ bán rã khoảng 21,83 phút.</span></li>
+          <li><span class="source-type">Dữ liệu đánh giá</span><a href="https://www.nndc.bnl.gov/nudat3/getdecaydataset.jsp?dsid=233pa+bM+decay+%2826.975+d%29&amp;nucleus=233U" rel="noreferrer">NNDC/ENSDF — phân rã protactinium-233</a><span class="source-note">Đối chiếu chu kỳ bán rã khoảng 26,975 ngày.</span></li>
+          <li><span class="source-type">Dữ liệu đánh giá</span><a href="https://www.nndc.bnl.gov/ensnds/229/Th/a_decay.pdf" rel="noreferrer">NNDC/ENSDF — phân rã uranium-233</a><span class="source-note">Đối chiếu phân rã alpha thành thorium-229 và chu kỳ bán rã 159.200 năm.</span></li>
+          <li><span class="source-type">Cơ quan quốc tế</span><a href="https://infcis.iaea.org/NFCSS/_content/Iaea.Infcis.Nfcss.UI/documents/TecDocs/IAEA-TECDOC-1864.pdf" rel="noreferrer">IAEA-TECDOC-1864 — Thorium fuel cycles</a><span class="source-note">Đối chiếu chuỗi tạo uranium-233 và vai trò của thorium trong chu trình nhiên liệu.</span></li>
+          <li><span class="source-type">Cơ quan quản lý</span><a href="https://ww2.nrc.gov/reading-rm/basic-ref/glossary/fissile-material" rel="noreferrer">U.S. NRC — Fissile material</a><span class="source-note">Đối chiếu định nghĩa vật liệu phân hạch bằng neutron nhiệt và vị trí của uranium-233.</span></li>
+          <li><span class="source-type">Báo cáo an toàn</span><a href="https://www.energy.gov/sites/prod/files/2020/07/f77/NT-20-3.pdf" rel="noreferrer">U.S. DOE — Occupational Radiation Exposure Report NT-20-3</a><span class="source-note">Căn cứ cho lưu ý về uranium-232, thallium-208 và bức xạ gamma trong chế tạo nhiên liệu uranium-233.</span></li>
+          <li><span class="source-type">Báo cáo kỹ thuật</span><a href="https://www.osti.gov/biblio/5632099" rel="noreferrer">Brookhaven/OSTI — Uranium half-lives: a critical review</a><span class="source-note">Nguồn độc lập cho chu kỳ bán rã uranium-233.</span></li>
+        </ul>
+      </section>
+    </main>
+
+    <nav aria-label="Mục lục bài học">
+      <strong>Trong bài này</strong>
+      <ol>
+        <li><a href="#cau-hoi">Câu hỏi trung tâm</a></li>
+        <li><a href="#muc-tieu">Mục tiêu</a></li>
+        <li><a href="#cau-tao">Cấu tạo U-233</a></li>
+        <li><a href="#chuoi-bien-doi">Chuỗi biến đổi</a></li>
+        <li><a href="#vai-tro">Hai vai trò vật liệu</a></li>
+        <li><a href="#ban-ra">Chu kỳ bán rã</a></li>
+        <li><a href="#kiem-chung">Kiểm chứng nguồn</a></li>
+        <li><a href="#gioi-han">Giới hạn và an toàn</a></li>
+        <li><a href="#quiz">Tự kiểm</a></li>
+        <li><a href="#nguon">Nguồn</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <footer>
+    <p>Tài liệu giáo dục độc lập · Không thay thế quy trình an toàn bức xạ hoặc tài liệu vận hành chuyên môn.</p>
+  </footer>
+
+  <script>
+    (() => {
+      const form = document.getElementById('quiz-form');
+      const result = document.getElementById('quiz-result');
+      const feedback = document.getElementById('quiz-feedback');
+      const answers = { q1: 'b', q2: 'a', q3: 'c', q4: 'd', q5: 'a' };
+      const explanations = {
+        q1: 'Uranium có Z = 92; số neutron là 233 − 92 = 141.',
+        q2: 'Bắt neutron làm A tăng từ 232 lên 233, còn Z vẫn bằng 90.',
+        q3: 'Trong beta trừ, một neutron thành proton; Z tăng một và A giữ nguyên.',
+        q4: 'Thorium-232 là vật liệu sinh nhiên liệu: nó có thể chuyển hóa thành uranium-233.',
+        q5: '1 MeV = 1,602 × 10⁻¹³ J, nên 197,9 MeV ở cỡ 3,17 × 10⁻¹¹ J.'
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        feedback.replaceChildren();
+        let score = 0;
+        let answered = 0;
+
+        Object.entries(answers).forEach(([name, correct], index) => {
+          const selected = form.querySelector(`input[name="${name}"]:checked`);
+          if (selected) answered += 1;
+          const isCorrect = selected && selected.value === correct;
+          if (isCorrect) score += 1;
+
+          const item = document.createElement('li');
+          item.textContent = `Câu ${index + 1}: ${isCorrect ? 'Đúng.' : 'Cần xem lại.'} ${explanations[name]}`;
+          feedback.appendChild(item);
+        });
+
+        if (answered < 5) {
+          result.textContent = `Bạn đã trả lời ${answered}/5 câu. Điểm hiện tại: ${score}/5.`;
+        } else if (score === 5) {
+          result.textContent = '5/5 — Bạn đã nối được cấu tạo, cơ chế và kiểm chứng nguồn.';
+        } else {
+          result.textContent = `${score}/5 — Đọc phản hồi dưới đây rồi thử giải thích lại chuỗi biến đổi bằng lời của bạn.`;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
