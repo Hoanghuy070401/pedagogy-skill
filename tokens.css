@@ -1,0 +1,52 @@
+/* Hallmark · genre: editorial · macrostructure: Long Document · theme: Almanac · enrichment: none · nav: N9 · footer: Ft4 · static: pass · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · icons: pass (30) · render/contrast/mobile: pending */
+:root {
+  color-scheme: light;
+
+  --ink: oklch(25% 0.025 165);
+  --ink-soft: oklch(43% 0.025 165);
+  --paper: oklch(98% 0.012 92);
+  --paper-deep: oklch(94% 0.018 92);
+  --surface: oklch(100% 0.006 92 / 76%);
+  --line: oklch(82% 0.025 155);
+  --android: oklch(67% 0.17 145);
+  --android-deep: oklch(39% 0.10 160);
+  --android-wash: oklch(93% 0.055 145);
+  --blue: oklch(52% 0.13 245);
+  --blue-wash: oklch(94% 0.035 245);
+  --amber: oklch(72% 0.13 78);
+  --amber-wash: oklch(95% 0.045 78);
+  --code-bg: oklch(22% 0.025 170);
+  --code-ink: oklch(93% 0.025 145);
+  --focus: oklch(58% 0.18 250);
+  --light-line: oklch(100% 0.006 92 / 25%);
+  --light-wash: oklch(100% 0.006 92 / 7%);
+
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+
+  --text-xs: 0.72rem;
+  --text-sm: 0.85rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.563rem;
+  --text-xl: 1.953rem;
+  --text-2xl: clamp(2.5rem, 7vw, 5.2rem);
+
+  --space-1: 0.35rem;
+  --space-2: 0.6rem;
+  --space-3: 0.9rem;
+  --space-4: 1.25rem;
+  --space-5: 1.75rem;
+  --space-6: 2.5rem;
+  --space-7: 3.75rem;
+  --space-8: 5.5rem;
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --measure: 65ch;
+  --radius: 1rem;
+  --shadow: 0 1rem 3rem oklch(25% 0.025 165 / 10%);
+
+  --rule-hair: 1px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+}
